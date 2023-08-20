@@ -71,8 +71,8 @@ function Setting() {
 
     const addDesign = async (e) => {
         e.preventDefault();
-        let { title, description, image } = design
-        if (title && description && image) {
+        let { title, description, image, category } = design
+        if (title && description && image && category) {
             setCreating(true);
             if (typeof image == 'object') {
                 image = await uploadImage(image)
@@ -148,7 +148,6 @@ function Setting() {
                     </div>
                 </div>
             </div>
-
             <div className='bg-white rounded-lg p-4 mt-10'>
                 <h1 className='text-3xl font-medium text-gradient h-10'>My Designs</h1>
                 <div className='flex flex-wrap gap-6 py-6'>
@@ -159,6 +158,7 @@ function Setting() {
                                     <img src={item.image} className='w-full h-full' alt="" />
                                 </div>
                                 <h1 className='font-medium my-2'>{item.title}</h1>
+                                <h1 className='font-medium my-2'>{item.category}</h1>
                                 <div className='flex items-center gap-5'>
                                     <span className='text-sky-500 cursor-pointer' onClick={() => setDesign(item)}>Edit</span>
                                     <span className='text-rose-500 cursor-pointer' onClick={() => deleteDesign(item?._id)}>Delete</span>
@@ -223,6 +223,12 @@ function Setting() {
                     } />
 
                     <input type="text" name='title' value={design.title} onChange={(e) => setDesign({ ...design, title: e.target.value })} required className='border py-2 px-4 w-full my-6' placeholder='Enter the design title' />
+                    <select value={design?.category} onChange={(e) => setDesign({ ...design, category: e.target.value })} className='border py-2 px-4 w-full mb-5'>
+                        <option value="" disabled selected>Choose a collection</option>
+                        {
+                            collections?.map((item, i) => <option key={i} value={item._id}>{item.title}</option>)
+                        }
+                    </select>
 
                     <textarea type="text" name='description' value={design.description} onChange={(e) => setDesign({ ...design, description: e.target.value })} required className='border py-2 px-4 w-full resize-none h-36 mb-4' placeholder='Enter the collection description'></textarea>
                     <button disabled={adding} type='submit' className='bg-gradient text-white rounded-lg py-2 w-[120px] flex items-center justify-center'>

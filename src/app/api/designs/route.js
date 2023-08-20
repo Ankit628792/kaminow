@@ -4,11 +4,17 @@ import { NextResponse } from "next/server";
 
 
 export async function GET() {
-    await connectDB();
+    try {
+        await connectDB();
 
-    let designs = await getDesigns();
+        let designs = await getDesigns();
 
-    return NextResponse.json(designs)
+        return NextResponse.json(designs)
+
+    } catch (error) {
+        console.log(error)
+        return NextResponse.error({ error })
+    }
 }
 
 export async function POST(request) {

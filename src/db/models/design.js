@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 
 const design = new mongoose.Schema({
     title: {
@@ -13,6 +13,10 @@ const design = new mongoose.Schema({
         type: String,
         required: true
     },
+    category: {
+        type: Schema.Types.ObjectId,
+        ref: 'Collection'
+    }
 }, { timestamps: true })
 
 const Design = mongoose.models.Design || mongoose.model("Design", design);
