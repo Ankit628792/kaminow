@@ -1,0 +1,82 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* 
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+} */
+
+.bg-gradient {
+  background: linear-gradient(#AA076B, #61045F);
+}
+
+.text-gradient {
+  background: linear-gradient(to right, #AA076B, #61045F);
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  line-height: 1.4 !important;
+}
+
+
+/* just for custom scrollbar*/
+::-webkit-scrollbar {
+  width: 5px;
+  height: 2px;
+}
+
+::-webkit-scrollbar-button {
+  width: 0px;
+  height: 0px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2d3748;
+  border: 0px none #ffffff;
+  border-radius: 50px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #333;
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: #333;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(143, 143, 143, 0.3);
+  border: 0px none #333;
+  border-radius: 50px;
+}
+
+::-webkit-scrollbar-track:hover {
+  background: rgba(143, 143, 143, 0.3);
+}
+
+::-webkit-scrollbar-track:active {
+  background: rgba(143, 143, 143, 0.3);
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
