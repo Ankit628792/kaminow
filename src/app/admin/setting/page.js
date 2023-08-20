@@ -3,7 +3,7 @@ import { uploadImage } from '@/utils'
 import React, { useEffect, useState } from 'react'
 import { FileUploader } from 'react-drag-drop-files'
 
-function page() {
+function Setting() {
     const [adding, setAdding] = useState(false)
     const [collection, setCollection] = useState(false);
     const [collections, setCollections] = useState([]);
@@ -128,8 +128,8 @@ function page() {
                 <h1 className='text-3xl font-medium text-gradient'>Collections</h1>
                 <div className='flex flex-wrap gap-6 py-6'>
                     {
-                        collections?.map(item => (
-                            <div className='flex flex-col items-center justify-center'>
+                        collections?.map((item, i) => (
+                            <div key={i} className='flex flex-col items-center justify-center'>
                                 <div className='w-52 h-52 grid place-items-center rounded-lg border overflow-hidden'>
                                     <img src={item.image} className='w-full h-full' alt="" />
                                 </div>
@@ -153,9 +153,8 @@ function page() {
                 <h1 className='text-3xl font-medium text-gradient h-10'>My Designs</h1>
                 <div className='flex flex-wrap gap-6 py-6'>
                     {
-                        designs?.map(item => (
-                            <div className='flex flex-col items-center justify-center'>
-
+                        designs?.map((item, i) => (
+                            <div key={i} className='flex flex-col items-center justify-center'>
                                 <div className='w-52 h-52 grid place-items-center rounded-lg border overflow-hidden'>
                                     <img src={item.image} className='w-full h-full' alt="" />
                                 </div>
@@ -193,9 +192,7 @@ function page() {
                             }
                         </div>
                     } />
-
                     <input type="text" name='title' value={collection.title} onChange={(e) => setCollection({ ...collection, title: e.target.value })} required className='border py-2 px-4 w-full my-6' placeholder='Enter the collection title' />
-
                     <textarea type="text" name='description' value={collection.description} onChange={(e) => setCollection({ ...collection, description: e.target.value })} required className='border py-2 px-4 w-full resize-none h-36 mb-4' placeholder='Enter the collection description'></textarea>
                     <button disabled={adding} type='submit' className='bg-gradient text-white rounded-lg py-2 w-[120px] flex items-center justify-center'>
                         {
@@ -205,7 +202,6 @@ function page() {
                                 :
                                 <span>Submit</span>
                         }
-
                     </button>
                 </form>
             </div>}
@@ -245,4 +241,4 @@ function page() {
     )
 }
 
-export default page
+export default Setting
