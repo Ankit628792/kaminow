@@ -1,4 +1,6 @@
+'use client'
 import HeaderImage from '@/assets/header.jpg'
+import { useEffect, useState } from 'react';
 
 const callouts = [
   {
@@ -24,7 +26,17 @@ const callouts = [
   },
 ]
 
+
 export default function Home() {
+  const [collections, setCollections] = useState([]);
+  const [loading, setLoading] = useState(false)
+  const [designs, setDesigns] = useState([]);
+
+  useEffect(() => {
+    fetch('/api/collections').then(res => res.json()).then(data => setCollections(data)).catch(e => console.log(e))
+    fetch('/api/designs').then(res => res.json()).then(data => setDesigns(data)).catch(e => console.log(e))
+  }, [])
+
   return (
     <>
       <main className="flex-grow">
@@ -34,12 +46,12 @@ export default function Home() {
           <button className='bg-white rounded-xl py-2 px-6 md:text-lg 2xl:text-xl'>
             Contact now
           </button>
-          <img src={HeaderImage.src} className='w-96 h-96 rounded-lg mt-10 object-cover' alt='' />
+          <img src={HeaderImage.src} className='w-96 h-96 rounded-lg mt-10 object-contain' alt='' />
         </section>
 
         <section className='flex items-center flex-wrap justify-around gap-10 w-full max-w-7xl mx-auto py-20 px-4'>
           <div className='flex-shrink-0 w-96 h-96'>
-            <img src={HeaderImage.src} className='filter drop-shadow w-full h-full object-cover rounded-lg' alt="" />
+            <img src={HeaderImage.src} className='filter drop-shadow w-full h-full object-contain rounded-lg' alt="" />
           </div>
           <div className='w-full max-w-xl '>
             <h1 className='text-3xl sm:text-4xl md:text-5xl font-bold text-gradient text-center lg:text-left'>Design Title 3words</h1>
@@ -50,8 +62,8 @@ export default function Home() {
 
           <div className='w-full flex items-center justify-around flex-wrap py-10 gap-5'>
             {
-              [...Array(5).fill(1).keys()].map((item, i) => <div key={i} className='text-center w-40 h-40 rounded-lg'>
-                <img src={HeaderImage.src} className='w-full h-full object-cover rounded-lg' alt="" />
+              designs.slice(0, 5).map((item, i) => <div key={i} className='text-center w-40 h-40 rounded-lg'>
+                <img src={item.image} className='w-full h-full object-contain rounded-lg' alt="" />
               </div>)
             }
           </div>
@@ -61,26 +73,26 @@ export default function Home() {
         <div className="bg-gradient">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="mx-auto max-w-2xl py-16 sm:py-24 lg:max-w-none lg:py-32">
-            <h1 className='text-3xl sm:text-4xl md:text-5xl font-bold text-white text-center'>Collections</h1>
-            <p className='text-gray-100 text-lg mt-2 text-center'>Explore the top category of designs</p>
+              <h1 className='text-3xl sm:text-4xl md:text-5xl font-bold text-white text-center'>Collections</h1>
+              <p className='text-gray-100 text-lg mt-2 text-center'>Explore the top category of designs</p>
 
               <div className="mt-10 space-y-12 lg:grid lg:grid-cols-3 lg:gap-x-6 lg:space-y-0">
-                {callouts.map((callout) => (
-                  <div key={callout.name} className="group relative">
+                {collections.map((collection) => (
+                  <div key={collection.title} className="group relative">
                     <div className="relative h-80 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-75 sm:h-64">
                       <img
-                        src={callout.imageSrc}
-                        alt={callout.imageAlt}
+                        src={collection.image}
+                        alt={collection.title}
                         className="h-full w-full object-cover object-center"
                       />
                     </div>
                     <h3 className="mt-6 text-2xl font-bold text-white">
-                      <a href={callout.href}>
+                      <a>
                         <span className="absolute inset-0" />
-                        {callout.name}
+                        {collection.title}
                       </a>
                     </h3>
-                    <p className="text-base text-gray-50">{callout.description}</p>
+                    <p className="text-base text-gray-50 line-clamp-3">{collection.description}</p>
                   </div>
                 ))}
               </div>

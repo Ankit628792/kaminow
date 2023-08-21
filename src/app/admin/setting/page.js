@@ -157,8 +157,8 @@ function Setting() {
                                 <div className='w-52 h-52 grid place-items-center rounded-lg border overflow-hidden'>
                                     <img src={item.image} className='w-full h-full' alt="" />
                                 </div>
-                                <h1 className='font-medium my-2'>{item.title}</h1>
-                                <h1 className='font-medium my-2'>{item.category}</h1>
+                                <h1 className='font-medium mt-2'>{item.title}</h1>
+                                <h1 className='text-gray-500 mb-2'>({item.category.title})</h1>
                                 <div className='flex items-center gap-5'>
                                     <span className='text-sky-500 cursor-pointer' onClick={() => setDesign(item)}>Edit</span>
                                     <span className='text-rose-500 cursor-pointer' onClick={() => deleteDesign(item?._id)}>Delete</span>
@@ -233,7 +233,7 @@ function Setting() {
                     <textarea type="text" name='description' value={design.description} onChange={(e) => setDesign({ ...design, description: e.target.value })} required className='border py-2 px-4 w-full resize-none h-36 mb-4' placeholder='Enter the collection description'></textarea>
                     <button disabled={adding} type='submit' className='bg-gradient text-white rounded-lg py-2 w-[120px] flex items-center justify-center'>
                         {
-                            adding ?
+                            creating ?
                                 <div className='border-2 border-b-0 animate-spin w-6 h-6 rounded-full'>
                                 </div>
                                 :

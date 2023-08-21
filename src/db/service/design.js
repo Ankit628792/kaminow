@@ -5,7 +5,7 @@ export async function getDesignById(_id) {
 }
 
 export async function getDesigns() {
-    return await Design.find().sort({ creadtedAt: -1 });
+    return await Design.find().sort({ creadtedAt: -1 }).populate('category', 'title');
 }
 
 export async function createDesign(input) {

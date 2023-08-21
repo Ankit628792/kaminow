@@ -7,7 +7,7 @@ function Navbar() {
             <nav className='w-full max-w-7xl mx-auto flex items-center justify-between'>
                 <Link href={'/'}>
                     <div className="logo">
-                        <h1 className='text-4xl font-semibold text-white'>Logo</h1>
+                        <h1 className='text-4xl font-semibold text-white'>Kaminow</h1>
                     </div>
                 </Link>
 
