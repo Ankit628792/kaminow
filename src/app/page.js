@@ -62,7 +62,7 @@ export default function Home() {
 
           <div className='w-full flex items-center justify-around flex-wrap py-10 gap-5'>
             {
-              designs.slice(0, 5).map((item, i) => <div key={i} className='text-center w-40 h-40 rounded-lg'>
+              designs?.slice(0, 5)?.map((item, i) => <div key={i} className='text-center w-40 h-40 rounded-lg'>
                 <img src={item.image} className='w-full h-full object-contain rounded-lg' alt="" />
               </div>)
             }
@@ -77,22 +77,22 @@ export default function Home() {
               <p className='text-gray-100 text-lg mt-2 text-center'>Explore the top category of designs</p>
 
               <div className="mt-10 space-y-12 lg:grid lg:grid-cols-3 lg:gap-x-6 lg:space-y-0">
-                {collections.map((collection) => (
-                  <div key={collection.title} className="group relative">
+                {collections?.map((collection) => (
+                  <div key={collection?.title} className="group relative">
                     <div className="relative h-80 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-75 sm:h-64">
                       <img
-                        src={collection.image}
-                        alt={collection.title}
+                        src={collection?.image}
+                        alt={collection?.title}
                         className="h-full w-full object-cover object-center"
                       />
                     </div>
                     <h3 className="mt-6 text-2xl font-bold text-white">
                       <a>
                         <span className="absolute inset-0" />
-                        {collection.title}
+                        {collection?.title}
                       </a>
                     </h3>
-                    <p className="text-base text-gray-50 line-clamp-3">{collection.description}</p>
+                    <p className="text-base text-gray-50 line-clamp-3">{collection?.description}</p>
                   </div>
                 ))}
               </div>

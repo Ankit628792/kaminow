@@ -133,7 +133,7 @@ function Setting() {
                                 <div className='w-52 h-52 grid place-items-center rounded-lg border overflow-hidden'>
                                     <img src={item.image} className='w-full h-full' alt="" />
                                 </div>
-                                <h1 className='font-medium my-2'>{item.title}</h1>
+                                <h1 className='font-medium my-2'>{item?.title}</h1>
                                 <div className='flex items-center gap-5'>
                                     <span className='text-sky-500 cursor-pointer' onClick={() => setCollection(item)}>Edit</span>
                                     <span className='text-rose-500 cursor-pointer' onClick={() => deleteCollection(item?._id)}>Delete</span>
@@ -158,7 +158,7 @@ function Setting() {
                                     <img src={item.image} className='w-full h-full' alt="" />
                                 </div>
                                 <h1 className='font-medium mt-2'>{item.title}</h1>
-                                <h1 className='text-gray-500 mb-2'>({item.category.title})</h1>
+                                <h1 className='text-gray-500 mb-2'>({item.category?.title})</h1>
                                 <div className='flex items-center gap-5'>
                                     <span className='text-sky-500 cursor-pointer' onClick={() => setDesign(item)}>Edit</span>
                                     <span className='text-rose-500 cursor-pointer' onClick={() => deleteDesign(item?._id)}>Delete</span>
