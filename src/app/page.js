@@ -62,7 +62,7 @@ export default function Home() {
       <main className="flex-grow">
         <section className="bg-gradient px-5 py-32 flex flex-col items-center justify-center min-h-[80vh]">
           <h1 className="font-bold text-4xl sm:text-5xl md:text-6xl 2xl:text-7xl text-white text-center">Kaminow</h1>
-          <p className="text-lg xl:text-xl text-white my-4 max-w-3xl text-center">Get ready to go product logo with Kaminow, I provide fast and smooth service for logo branding</p>
+          <p className="text-lg xl:text-xl text-white my-4 max-w-3xl text-center">Crafting Tomorrow's Visual Identity: Transforming Ideas into Modern Masterpieces through Graphic Design Excellence.</p>
           <button className='bg-white rounded-xl py-2 px-6 md:text-lg 2xl:text-xl'>
             Contact now
           </button>
@@ -135,7 +135,7 @@ export default function Home() {
               <img
                 src={featuredDesigns?.[0]?.image || "https://tailwindui.com/img/component-images/dark-project-app-screenshot.png"}
                 alt={featuredDesigns?.[0]?.title || "Product screenshot"}
-                className="w-[48rem] max-w-none rounded-xl shadow-xl ring-1 ring-gray-400/10 sm:w-[57rem] max-h-[700px] object-cover md:-ml-4 lg:-ml-0"
+                className="w-[48rem] max-w-none rounded-xl shadow-xl ring-1 ring-gray-400/10 sm:w-[57rem] max-h-[700px] object-contain md:-ml-4 lg:-ml-0"
                 width={2432}
                 height={1442}
               />
