@@ -2,6 +2,10 @@
 import HeaderImage from '@/assets/header.jpg'
 import { useEffect, useState } from 'react';
 
+function randomInteger(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 const callouts = [
   {
     name: 'Desk and Office',
@@ -31,11 +35,27 @@ export default function Home() {
   const [collections, setCollections] = useState([]);
   const [loading, setLoading] = useState(false)
   const [designs, setDesigns] = useState([]);
+  const [featuredDesigns, setFeaturedDesigns] = useState([]);
+  const [activeDesign, setActiveDesign] = useState();
+  const [activeImage, setActiveImage] = useState('')
 
   useEffect(() => {
     fetch('/api/collections').then(res => res.json()).then(data => setCollections(data)).catch(e => console.log(e))
     fetch('/api/designs').then(res => res.json()).then(data => setDesigns(data)).catch(e => console.log(e))
+    fetch('/api/featured').then(res => res.json()).then(data => setFeaturedDesigns(data)).catch(e => console.log(e))
   }, [])
+
+  useEffect(() => {
+    if (designs?.length) {
+      setActiveDesign(designs[0])
+    }
+  }, [designs?.length])
+
+  useEffect(() => {
+    if (designs.length) {
+      setInterval(() => { console.log(randomInteger(0, designs?.length - 1)); setActiveImage(designs[randomInteger(0, designs?.length - 1)]?.image) }, 5000)
+    }
+  }, [designs?.length])
 
   return (
     <>
@@ -46,23 +66,23 @@ export default function Home() {
           <button className='bg-white rounded-xl py-2 px-6 md:text-lg 2xl:text-xl'>
             Contact now
           </button>
-          <img src={HeaderImage.src} className='w-96 h-96 rounded-lg mt-10 object-contain' alt='' />
+          <img src={activeImage || HeaderImage?.src} className='w-96 h-96 rounded-lg mt-10 object-contain' alt='' />
         </section>
 
         <section className='flex items-center flex-wrap justify-around gap-10 w-full max-w-7xl mx-auto py-20 px-4'>
           <div className='flex-shrink-0 w-96 h-96'>
-            <img src={HeaderImage.src} className='filter drop-shadow w-full h-full object-contain rounded-lg' alt="" />
+            <img src={activeDesign?.image} className='filter drop-shadow w-full h-full object-contain rounded-lg' alt="" />
           </div>
           <div className='w-full max-w-xl '>
-            <h1 className='text-3xl sm:text-4xl md:text-5xl font-bold text-gradient text-center lg:text-left'>Design Title 3words</h1>
-            <p className='text-gray-500 my-4 text-center lg:text-left text-lg'>
-              lorem simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged
+            <h1 className='text-3xl sm:text-4xl md:text-5xl font-bold text-gradient text-center lg:text-left'>{activeDesign?.title}</h1>
+            <p className='text-gray-500 my-1 text-center lg:text-left text-lg'>
+              {activeDesign?.description}
             </p>
           </div>
 
           <div className='w-full flex items-center justify-around flex-wrap py-10 gap-5'>
             {
-              designs?.slice(0, 5)?.map((item, i) => <div key={i} className='text-center w-40 h-40 rounded-lg'>
+              designs?.slice(0, 5)?.map((item, i) => <div key={i} className='text-center w-40 h-40 rounded-lg cursor-pointer' onClick={() => setActiveDesign(item)}>
                 <img src={item.image} className='w-full h-full object-contain rounded-lg' alt="" />
               </div>)
             }
@@ -78,8 +98,8 @@ export default function Home() {
 
               <div className="mt-10 space-y-12 lg:grid lg:grid-cols-3 lg:gap-x-6 lg:space-y-0">
                 {collections?.map((collection) => (
-                  <div key={collection?.title} className="group relative">
-                    <div className="relative h-80 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-75 sm:h-64">
+                  <div key={collection?.title} className="group relative flex flex-col items-center justify-center">
+                    <div className="relative h-80 w-96 cursor-pointer overflow-hidden rounded-lg bg-white sm:aspect-h-1 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-75 ">
                       <img
                         src={collection?.image}
                         alt={collection?.title}
@@ -92,7 +112,7 @@ export default function Home() {
                         {collection?.title}
                       </a>
                     </h3>
-                    <p className="text-base text-gray-50 line-clamp-3">{collection?.description}</p>
+                    <p className="text-base text-gray-50 line-clamp-3 text-center">{collection?.description}</p>
                   </div>
                 ))}
               </div>
@@ -107,16 +127,15 @@ export default function Home() {
               <div className="lg:pr-8 lg:pt-4">
                 <div className="lg:max-w-lg">
                   <p className="text-3xl sm:text-4xl md:text-5xl font-bold text-gradient text-center lg:text-left">Featured Product</p>
-                  <p className="mt-6 text-lg leading-8 text-gray-600 text-center lg:text-left">
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque,
-                    iste dolor cupiditate blanditiis ratione.
+                  <p className="mt-2 text-lg leading-8 text-gray-600 text-center lg:text-left">
+                    {featuredDesigns?.[0]?.description}
                   </p>
                 </div>
               </div>
               <img
-                src="https://tailwindui.com/img/component-images/dark-project-app-screenshot.png"
-                alt="Product screenshot"
-                className="w-[48rem] max-w-none rounded-xl shadow-xl ring-1 ring-gray-400/10 sm:w-[57rem] md:-ml-4 lg:-ml-0"
+                src={featuredDesigns?.[0]?.image || "https://tailwindui.com/img/component-images/dark-project-app-screenshot.png"}
+                alt={featuredDesigns?.[0]?.title || "Product screenshot"}
+                className="w-[48rem] max-w-none rounded-xl shadow-xl ring-1 ring-gray-400/10 sm:w-[57rem] max-h-[700px] object-cover md:-ml-4 lg:-ml-0"
                 width={2432}
                 height={1442}
               />
