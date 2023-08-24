@@ -3,7 +3,7 @@ import HeaderImage from '@/assets/header.jpg'
 import Loader from '@/components/Loader';
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react';
-import Room from '../assets/room.png'
+import Room from '../assets/ROOM2.png'
 
 function randomInteger(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -83,7 +83,8 @@ export default function Home() {
           <img src={activeImage || HeaderImage?.src} className='w-96 h-96 rounded-lg mt-10 object-contain' alt='' />
         </section>
 
-        <section className='pt-10'>
+        <section className='relative'>
+          <p className='text-justify text-gray-500 max-w-4xl transform translate-y-12 leading-relaxed md:absolute md:top-16 md:left-0 md:text-lg p-5'>We are a team of graphic designers who provide you with the best graphic experience you've ever had. Our passion for creativity and design drives us to craft visually captivating and impactful solutions tailored to your unique needs. With a keen eye for detail and a commitment to excellence, we work collaboratively to bring your ideas to life</p>
           <img src={Room.src} alt="" className='w-full' />
         </section>
 
