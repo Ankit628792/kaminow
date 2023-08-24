@@ -26,6 +26,16 @@ body {
     rgb(var(--background-start-rgb));
 } */
 
+@font-face {
+  font-family: 'DragonHunter';
+  src: url('../assets/DragonHunter.otf');
+  font-style: normal;
+}
+
+.dragon {
+  font-family: 'DragonHunter', sans-serif;
+}
+
 .bg-gradient {
   background: linear-gradient(#AA076B, #61045F);
 }

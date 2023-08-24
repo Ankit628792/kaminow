@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import React from 'react'
+import Logo from '../assets/kamino.png'
 
 
 function Navbar() {
@@ -8,8 +9,8 @@ function Navbar() {
             <nav className='w-full max-w-7xl mx-auto flex items-center justify-between'>
                 <Link href={'/'}>
                     <div className="logo flex items-center gap-2">
-                        <img className='h-14' src="/logo.png" alt="" />
-                        <h1 className='text-4xl font-semibold text-white hidden md:inline-block'>Kaminow</h1>
+                        <img className='h-14' src={Logo.src} alt="" />
+                        <h1 className='text-3xl font-semibold text-white hidden md:inline-block dragon tracking-widest'>Kaminow</h1>
                     </div>
                 </Link>
 

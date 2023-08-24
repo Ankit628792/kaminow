@@ -3,6 +3,7 @@ import HeaderImage from '@/assets/header.jpg'
 import Loader from '@/components/Loader';
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react';
+import Room from '../assets/room.png'
 
 function randomInteger(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -66,18 +67,24 @@ export default function Home() {
     }
   }, [designs?.length])
 
-  if (loading) <Loader />
+  if (loading) {
+    return <Loader />
+  }
 
   return (
     <>
       <main className="flex-grow">
         <section className="bg-gradient px-5 py-32 flex flex-col items-center justify-center min-h-[80vh]">
-          <h1 className="font-bold text-4xl sm:text-5xl md:text-6xl 2xl:text-7xl text-white text-center">Kaminow</h1>
+          <h1 className="font-bold text-4xl sm:text-5xl md:text-6xl 2xl:text-7xl text-white text-center dragon tracking-widest">Kaminow</h1>
           <p className="text-lg xl:text-xl text-white my-4 max-w-3xl text-center">Crafting Tomorrow's Visual Identity: Transforming Ideas into Modern Masterpieces through Graphic Design Excellence.</p>
           <button className='bg-white rounded-xl py-2 px-6 md:text-lg 2xl:text-xl' onClick={() => router.push('/contact')}>
             Contact now
           </button>
           <img src={activeImage || HeaderImage?.src} className='w-96 h-96 rounded-lg mt-10 object-contain' alt='' />
+        </section>
+
+        <section className='pt-10'>
+          <img src={Room.src} alt="" className='w-full' />
         </section>
 
         <section className='flex items-center flex-wrap justify-around gap-10 w-full max-w-7xl mx-auto py-20 px-4'>
@@ -110,7 +117,7 @@ export default function Home() {
               <div className="mt-10 space-y-12 lg:grid lg:grid-cols-3 lg:gap-x-6 lg:space-y-0">
                 {collections?.map((collection) => (
                   <div key={collection?.title} className="group relative flex flex-col items-center justify-center cursor-pointer" onClick={() => router.push(`/collection?${collection?._id}`)}>
-                    <div className="relative h-80 w-96 cursor-pointer overflow-hidden rounded-lg bg-white sm:aspect-h-1 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-75 ">
+                    <div className="relative h-80 w-80 cursor-pointer overflow-hidden rounded-lg sm:aspect-h-1 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-75 ">
                       <img
                         src={collection?.image}
                         alt={collection?.title}
@@ -146,7 +153,8 @@ export default function Home() {
               <img
                 src={featuredDesigns?.[0]?.image || "https://tailwindui.com/img/component-images/dark-project-app-screenshot.png"}
                 alt={featuredDesigns?.[0]?.title || "Product screenshot"}
-                className="max-w-none rounded-xl shadow-xl max-h-[700px] object-contain md:-ml-4 lg:-ml-0"
+                className="max-w-none rounded-xl max-h-[700px] object-contain md:-ml-4 lg:-ml-0"
+                style={{ boxShadow: '-20px 0px 20px rgba(0,0,0,0.1)' }}
               />
             </div>
           </div>

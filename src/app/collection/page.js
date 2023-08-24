@@ -44,7 +44,7 @@ function Collection() {
         <main className='flex-grow'>
             <div className='bg-gradient h-72 flex flex-col items-center justify-center'>
                 <p className='text-white text-lg mt-10'>FROM</p>
-                <h1 className='text-3xl sm:text-4xl lg:text-5xl font-semibold text-white'>{collection?.title}</h1>
+                <h1 className='text-3xl sm:text-4xl lg:text-5xl font-semibold text-white dragon tracking-widest'>{collection?.title}</h1>
             </div>
 
             <section className='max-w-7xl mx-auto flex flex-wrap gap-10 xl:gap-16 justify-center p-5 py-20'>
