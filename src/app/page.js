@@ -1,5 +1,7 @@
 'use client'
 import HeaderImage from '@/assets/header.jpg'
+import Loader from '@/components/Loader';
+import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react';
 
 function randomInteger(min, max) {
@@ -33,16 +35,23 @@ const callouts = [
 
 export default function Home() {
   const [collections, setCollections] = useState([]);
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
   const [designs, setDesigns] = useState([]);
   const [featuredDesigns, setFeaturedDesigns] = useState([]);
   const [activeDesign, setActiveDesign] = useState();
   const [activeImage, setActiveImage] = useState('')
 
+  const router = useRouter()
+
+  const fetchData = async () => {
+    await fetch('/api/collections').then(res => res.json()).then(data => setCollections(data)).catch(e => console.log(e))
+    await fetch('/api/designs').then(res => res.json()).then(data => setDesigns(data)).catch(e => console.log(e))
+    await fetch('/api/featured').then(res => res.json()).then(data => setFeaturedDesigns(data)).catch(e => console.log(e))
+    setLoading(false)
+  }
+
   useEffect(() => {
-    fetch('/api/collections').then(res => res.json()).then(data => setCollections(data)).catch(e => console.log(e))
-    fetch('/api/designs').then(res => res.json()).then(data => setDesigns(data)).catch(e => console.log(e))
-    fetch('/api/featured').then(res => res.json()).then(data => setFeaturedDesigns(data)).catch(e => console.log(e))
+    fetchData();
   }, [])
 
   useEffect(() => {
@@ -53,9 +62,11 @@ export default function Home() {
 
   useEffect(() => {
     if (designs.length) {
-      setInterval(() => { console.log(randomInteger(0, designs?.length - 1)); setActiveImage(designs[randomInteger(0, designs?.length - 1)]?.image) }, 5000)
+      setInterval(() => { setActiveImage(designs[randomInteger(0, designs?.length - 1)]?.image) }, 5000)
     }
   }, [designs?.length])
+
+  if (loading) <Loader />
 
   return (
     <>
@@ -63,7 +74,7 @@ export default function Home() {
         <section className="bg-gradient px-5 py-32 flex flex-col items-center justify-center min-h-[80vh]">
           <h1 className="font-bold text-4xl sm:text-5xl md:text-6xl 2xl:text-7xl text-white text-center">Kaminow</h1>
           <p className="text-lg xl:text-xl text-white my-4 max-w-3xl text-center">Crafting Tomorrow's Visual Identity: Transforming Ideas into Modern Masterpieces through Graphic Design Excellence.</p>
-          <button className='bg-white rounded-xl py-2 px-6 md:text-lg 2xl:text-xl'>
+          <button className='bg-white rounded-xl py-2 px-6 md:text-lg 2xl:text-xl' onClick={() => router.push('/contact')}>
             Contact now
           </button>
           <img src={activeImage || HeaderImage?.src} className='w-96 h-96 rounded-lg mt-10 object-contain' alt='' />
@@ -98,7 +109,7 @@ export default function Home() {
 
               <div className="mt-10 space-y-12 lg:grid lg:grid-cols-3 lg:gap-x-6 lg:space-y-0">
                 {collections?.map((collection) => (
-                  <div key={collection?.title} className="group relative flex flex-col items-center justify-center">
+                  <div key={collection?.title} className="group relative flex flex-col items-center justify-center cursor-pointer" onClick={() => router.push(`/collection?${collection?._id}`)}>
                     <div className="relative h-80 w-96 cursor-pointer overflow-hidden rounded-lg bg-white sm:aspect-h-1 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-75 ">
                       <img
                         src={collection?.image}
@@ -135,9 +146,7 @@ export default function Home() {
               <img
                 src={featuredDesigns?.[0]?.image || "https://tailwindui.com/img/component-images/dark-project-app-screenshot.png"}
                 alt={featuredDesigns?.[0]?.title || "Product screenshot"}
-                className="w-[48rem] max-w-none rounded-xl shadow-xl ring-1 ring-gray-400/10 sm:w-[57rem] max-h-[700px] object-contain md:-ml-4 lg:-ml-0"
-                width={2432}
-                height={1442}
+                className="max-w-none rounded-xl shadow-xl max-h-[700px] object-contain md:-ml-4 lg:-ml-0"
               />
             </div>
           </div>

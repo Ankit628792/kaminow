@@ -1,5 +1,6 @@
 import connectDB from "@/db/connectDB";
-import { createCollection, getCollections, removeCollection, updateCollection } from "@/db/service/collection";
+import { createCollection, getCollectionById, getCollectionByName, getCollections, removeCollection, updateCollection } from "@/db/service/collection";
+import { getDesignsByCollection } from "@/db/service/design";
 import { NextResponse } from "next/server";
 
 
@@ -15,10 +16,21 @@ export async function POST(request) {
 
     try {
         let data = await request.json();
-
         await connectDB();
-        let res = await createCollection(data)
-        return NextResponse.json(res)
+        if (data.type == 'get') {
+            let collection = await getCollectionById(data._id);
+            if (collection) {
+                let designs = await getDesignsByCollection({ category: collection._id })
+                return NextResponse.json({ collection, designs })
+            }
+            else {
+                throw "Collection not found"
+            }
+        }
+        else {
+            let res = await createCollection(data)
+            return NextResponse.json(res)
+        }
 
     } catch (error) {
         return NextResponse.error({ error })

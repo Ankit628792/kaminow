@@ -1,10 +1,10 @@
 import Collection from "../models/collection";
 
 export async function getCollectionById(_id) {
-    return await Collection.find({ _id });
+    return await Collection.findOne({ _id });
 }
 export async function getCollectionByName(title) {
-    return await Collection.find({ title });
+    return await Collection.findOne({ title });
 }
 
 export async function getCollections() {

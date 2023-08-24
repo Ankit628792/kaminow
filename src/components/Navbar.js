@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import React from 'react'
 
+
 function Navbar() {
     return (
         <header className='w-full py-3 px-5 absolute top-0 left-0 right-0'>
@@ -12,9 +13,11 @@ function Navbar() {
                     </div>
                 </Link>
 
-                <button className='bg-white rounded-xl py-1.5 px-5 md:text-lg'>
-                    Contact now
-                </button>
+                <Link href={'/contact'}>
+                    <button className='bg-white rounded-xl py-1.5 px-5 md:text-lg' >
+                        Contact now
+                    </button>
+                </Link>
             </nav>
         </header>
     )

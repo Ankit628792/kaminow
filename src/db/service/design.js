@@ -7,6 +7,9 @@ export async function getDesignById(_id) {
 export async function getDesigns() {
     return await Design.find().sort({ createdAt: -1 }).populate('category', 'title');
 }
+export async function getDesignsByCollection({ category }) {
+    return await Design.find({ category }).sort({ createdAt: -1 });
+}
 
 export async function createDesign(input) {
     return await Design.create(input)
