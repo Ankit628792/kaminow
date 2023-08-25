@@ -80,11 +80,14 @@ export default function Home() {
           <button className='bg-white rounded-xl py-2 px-6 md:text-lg 2xl:text-xl' onClick={() => router.push('/contact')}>
             Contact now
           </button>
-          <img src={activeImage || HeaderImage?.src} className='w-96 h-96 rounded-lg mt-10 object-contain' alt='' />
+          <img src={activeImage || HeaderImage?.src} className='w-96 h-96 rounded-lg mt-10 object-contain fade-animation' alt='' />
         </section>
 
         <section className='relative'>
-          <p className='text-justify text-gray-500 max-w-4xl transform translate-y-12 leading-relaxed md:absolute md:top-16 md:left-0 md:text-lg p-5'>We are a team of graphic designers who provide you with the best graphic experience you've ever had. Our passion for creativity and design drives us to craft visually captivating and impactful solutions tailored to your unique needs. With a keen eye for detail and a commitment to excellence, we work collaboratively to bring your ideas to life</p>
+          <div className=' transform translate-y-12 sm:translate-y-16 leading-relaxed lg:absolute lg:top-16 2xl:top-20 lg:left-0 p-5'>
+            <h1 className='text-3xl sm:text-4xl lg:text-5xl font-bold text-gradient'>Who We Are?</h1>
+            <p className='text-justify text-gray-500 lg:max-w-xl 2xl:max-w-2xl md:text-lg'>We are a team of graphic designers who provide you with the best graphic experience you've ever had. Our passion for creativity and design drives us to craft visually captivating and impactful solutions tailored to your unique needs. With a keen eye for detail and a commitment to excellence, we work collaboratively to bring your ideas to life</p>
+          </div>
           <img src={Room.src} alt="" className='w-full' />
         </section>
 
@@ -99,7 +102,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className='w-full flex items-center justify-around flex-wrap py-10 gap-5'>
+          <div className='w-full flex items-center justify-center sm:justify-evenly flex-wrap pt-10 pb-0 lg:pb-5 gap-5 gap-y-8'>
             {
               designs?.slice(0, 5)?.map((item, i) => <div key={i} className='text-center w-40 h-40 rounded-lg cursor-pointer' onClick={() => setActiveDesign(item)}>
                 <img src={item.image} className='w-full h-full object-contain rounded-lg' alt="" />
@@ -170,8 +173,7 @@ export default function Home() {
             <figure className="mt-10">
               <blockquote className="text-center text-xl font-semibold leading-8 text-gray-900 sm:text-2xl sm:leading-9">
                 <p>
-                  “Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo expedita voluptas culpa sapiente alias
-                  molestiae. Numquam corrupti in laborum sed rerum et corporis.”
+                  “Very engaging and hands on in his approach of design communication. Kaminow catered everything specifically to the needs of a product. They articulate all decisions with facts and provides a visually representation of a product ”
                 </p>
               </blockquote>
               <figcaption className="mt-10">
