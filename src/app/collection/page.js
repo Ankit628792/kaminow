@@ -76,7 +76,7 @@ export default Collection
 
 const Design = ({ design, onClick }) => {
     return (
-        <div className='w-60 h-[17rem] rounded-lg overflow-hidden cursor-pointer' onClick={onClick}>
+        <div className='w-60 h-[17rem] rounded-lg overflow-hidden cursor-pointer' style={{ boxShadow: '2px 2px 10px rgba(0,0,0,0.1)' }} onClick={onClick}>
             <img src={design.image} className='w-full h-full object-cover rounded-lg hover:scale-105 transition-all ease-in-out duration-150' alt="" />
         </div>
     )

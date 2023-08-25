@@ -1,4 +1,5 @@
 'use client'
+import Loader from '@/components/Loader'
 import { uploadImage } from '@/utils'
 import React, { useEffect, useState } from 'react'
 import { FileUploader } from 'react-drag-drop-files'
@@ -11,11 +12,17 @@ function Setting() {
     const [featuredDesigns, setFeaturedDesigns] = useState([]);
     const [design, setDesign] = useState(false);
     const [designs, setDesigns] = useState([]);
+    const [mainLoading, setMainLoading] = useState(true)
+
+    const fetchData = async () => {
+        await fetch('/api/collections').then(res => res.json()).then(data => setCollections(data)).catch(e => console.log(e))
+        await fetch('/api/designs').then(res => res.json()).then(data => setDesigns(data)).catch(e => console.log(e))
+        await fetch('/api/featured').then(res => res.json()).then(data => setFeaturedDesigns(data)).catch(e => console.log(e))
+        setMainLoading(false)
+    }
 
     useEffect(() => {
-        fetch('/api/collections').then(res => res.json()).then(data => setCollections(data)).catch(e => console.log(e))
-        fetch('/api/designs').then(res => res.json()).then(data => setDesigns(data)).catch(e => console.log(e))
-        fetch('/api/featured').then(res => res.json()).then(data => setFeaturedDesigns(data)).catch(e => console.log(e))
+        fetchData()
     }, [])
 
 
@@ -173,6 +180,57 @@ function Setting() {
         }
     }
 
+    const handleStar = (_id) => {
+        let idx = designs.findIndex(item => item._id == _id)
+        if (idx > -1) {
+            let arr = [...designs]
+            let item = designs[idx]
+            let star;
+            if (item.star) {
+                star = false
+            }
+            else {
+                star = true
+            }
+            arr[idx].star = star;
+            fetch(`/api/designs`, {
+                method: 'PATCH',
+                body: JSON.stringify({ ...item, star }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            setDesigns([...arr])
+        }
+    }
+    const handleTag = (_id) => {
+        let idx = designs.findIndex(item => item._id == _id)
+        if (idx > -1) {
+            let arr = [...designs]
+            let item = designs[idx]
+            let tag;
+            if (item.tag) {
+                tag = false
+            }
+            else {
+                tag = true
+            }
+            arr[idx].tag = tag
+            fetch(`/api/designs`, {
+                method: 'PATCH',
+                body: JSON.stringify({ ...item, tag }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            setDesigns([...arr])
+        }
+    }
+
+    if (mainLoading) {
+        return <Loader />
+    }
+
     return (
         <main className='flex-grow py-24 px-5 bg-gradient'>
 
@@ -205,8 +263,37 @@ function Setting() {
                 <div className='flex flex-wrap gap-6 py-6'>
                     {
                         designs?.map((item, i) => (
-                            <div key={i} className='flex flex-col items-center justify-center'>
-                                <div className='w-52 h-52 grid place-items-center rounded-lg border overflow-hidden'>
+                            <div key={i} className='flex flex-col items-center justify-center relative'>
+
+                                <div className='w-52 h-52 flex-shrink-0 grid place-items-center rounded-lg border overflow-hidden relative'>
+                                    <span className='absolute top-1 left-1 z-20 cursor-pointer' onClick={() => handleStar(item?._id)}>
+                                        {
+                                            item?.star
+                                                ?
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-7 h-7 text-yellow-300 filter drop-shadow-lg">
+                                                    <path fillRule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clipRule="evenodd" />
+                                                </svg>
+                                                :
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-7 h-7 text-yellow-300 filter drop-shadow-lg">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
+                                                </svg>
+                                        }
+                                    </span>
+                                    <span className='absolute top-1 right-1 z-20 cursor-pointer' onClick={() => handleTag(item?._id)}>
+                                        {
+                                            item?.tag
+                                                ?
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-7 h-7 text-yellow-300 filter drop-shadow-lg">
+                                                    <path fillRule="evenodd" d="M5.25 2.25a3 3 0 00-3 3v4.318a3 3 0 00.879 2.121l9.58 9.581c.92.92 2.39 1.186 3.548.428a18.849 18.849 0 005.441-5.44c.758-1.16.492-2.629-.428-3.548l-9.58-9.581a3 3 0 00-2.122-.879H5.25zM6.375 7.5a1.125 1.125 0 100-2.25 1.125 1.125 0 000 2.25z" clipRule="evenodd" />
+                                                </svg>
+                                                :
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-7 h-7 text-yellow-300 filter drop-shadow-lg">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 005.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 009.568 3z" />
+                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 6h.008v.008H6V6z" />
+                                                </svg>
+
+                                        }
+                                    </span>
                                     <img src={item.image} className='w-full h-full' alt="" />
                                 </div>
                                 <h1 className='font-medium mt-2'>{item.title}</h1>

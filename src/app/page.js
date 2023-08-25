@@ -3,7 +3,7 @@ import HeaderImage from '@/assets/header.jpg'
 import Loader from '@/components/Loader';
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react';
-import Room from '../assets/ROOM2.png'
+import Room from '../assets/Room3.png'
 
 function randomInteger(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -40,13 +40,17 @@ export default function Home() {
   const [designs, setDesigns] = useState([]);
   const [featuredDesigns, setFeaturedDesigns] = useState([]);
   const [activeDesign, setActiveDesign] = useState();
-  const [activeImage, setActiveImage] = useState('')
+  const [activeImage, setActiveImage] = useState('');
+  const [headerImages, setHeaderImages] = useState([])
 
   const router = useRouter()
 
   const fetchData = async () => {
     await fetch('/api/collections').then(res => res.json()).then(data => setCollections(data)).catch(e => console.log(e))
-    await fetch('/api/designs').then(res => res.json()).then(data => setDesigns(data)).catch(e => console.log(e))
+    await fetch('/api/designs').then(res => res.json()).then(data => {
+      setDesigns(data.filter(item => item?.star))
+      setHeaderImages(data.filter(item => item?.tag))
+    }).catch(e => console.log(e))
     await fetch('/api/featured').then(res => res.json()).then(data => setFeaturedDesigns(data)).catch(e => console.log(e))
     setLoading(false)
   }
@@ -63,7 +67,7 @@ export default function Home() {
 
   useEffect(() => {
     if (designs.length) {
-      setInterval(() => { setActiveImage(designs[randomInteger(0, designs?.length - 1)]?.image) }, 5000)
+      setInterval(() => { setActiveImage(headerImages[randomInteger(0, headerImages?.length - 1)]?.image) }, 5000)
     }
   }, [designs?.length])
 

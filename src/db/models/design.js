@@ -13,6 +13,14 @@ const design = new mongoose.Schema({
         type: String,
         required: true
     },
+    star: {
+        type: Boolean,
+        default: false
+    },
+    tag: {
+        type: Boolean,
+        default: false
+    },
     category: {
         type: Schema.Types.ObjectId,
         ref: 'Collection'
