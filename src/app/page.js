@@ -96,8 +96,8 @@ export default function Home() {
         </section>
 
         <section className='flex items-center flex-wrap justify-around gap-10 w-full max-w-7xl mx-auto py-20 px-4'>
-          <div className='flex-shrink-0 w-96 h-96'>
-            <img src={activeDesign?.image} className='filter drop-shadow w-full h-full object-contain rounded-lg' alt="" />
+          <div className='flex-shrink-0 w-96 h-96 filter drop-shadow-lg'>
+            <img src={activeDesign?.image} className='w-full h-full object-contain rounded-lg' alt="" />
           </div>
           <div className='w-full max-w-xl '>
             <h1 className='text-3xl sm:text-4xl md:text-5xl font-bold text-gradient text-center lg:text-left'>{activeDesign?.title}</h1>
@@ -108,7 +108,7 @@ export default function Home() {
 
           <div className='w-full flex items-center justify-center sm:justify-evenly flex-wrap pt-10 pb-0 lg:pb-5 gap-5 gap-y-8'>
             {
-              designs?.slice(0, 5)?.map((item, i) => <div key={i} className='text-center w-40 h-40 rounded-lg cursor-pointer' onClick={() => setActiveDesign(item)}>
+              designs?.slice(0, 5)?.map((item, i) => <div key={i} className='text-center w-40 h-40 rounded-lg cursor-pointer shadow-lg' onClick={() => setActiveDesign(item)}>
                 <img src={item.image} className='w-full h-full object-contain rounded-lg' alt="" />
               </div>)
             }
