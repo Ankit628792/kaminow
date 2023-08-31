@@ -1,5 +1,6 @@
 'use client'
 import Loader from '@/components/Loader'
+import NoRightClick from '@/components/NoRightClick'
 import { uploadImage } from '@/utils'
 import React, { useEffect, useState } from 'react'
 import { FileUploader } from 'react-drag-drop-files'
@@ -233,7 +234,7 @@ function Setting() {
 
     return (
         <main className='flex-grow py-24 px-5 bg-gradient'>
-
+            <NoRightClick />
             <div className='bg-white rounded-lg p-4'>
                 <h1 className='text-3xl font-medium text-gradient'>Collections</h1>
                 <div className='flex flex-wrap gap-6 py-6'>

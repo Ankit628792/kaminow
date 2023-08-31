@@ -91,21 +91,24 @@ body {
   background: transparent;
 }
 
-.fade-animation{
+.fade-animation {
   animation: fade 5s ease-in-out infinite;
 }
 
 @keyframes fade {
-  0%{
+  0% {
     opacity: 0;
   }
-  5%{
+
+  5% {
     opacity: 1;
   }
-  95%{
+
+  95% {
     opacity: 1;
   }
-  100%{
+
+  100% {
     opacity: 0;
   }
 }

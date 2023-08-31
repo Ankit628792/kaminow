@@ -4,6 +4,7 @@ import Loader from '@/components/Loader';
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react';
 import Room from '../assets/Room3.png'
+import NoRightClick from '@/components/NoRightClick';
 
 function randomInteger(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -77,6 +78,7 @@ export default function Home() {
 
   return (
     <>
+      <NoRightClick />
       <main className="flex-grow">
         <section className="bg-gradient px-5 py-32 flex flex-col items-center justify-center min-h-[80vh]">
           <h1 className="font-bold text-4xl sm:text-5xl md:text-6xl 2xl:text-7xl text-white text-center dragon tracking-widest">Kaminow</h1>

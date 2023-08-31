@@ -1,5 +1,6 @@
 'use client'
 import Loader from '@/components/Loader'
+import NoRightClick from '@/components/NoRightClick'
 import React, { useEffect, useState } from 'react'
 
 function Collection() {
@@ -43,6 +44,8 @@ function Collection() {
     }
     return (
         <main className='flex-grow'>
+            <NoRightClick />
+
             <div className='bg-gradient h-72 flex flex-col items-center justify-center'>
                 <h1 className='text-3xl sm:text-4xl lg:text-5xl font-semibold text-white mt-10 dragon tracking-widest'>{collection?.title}</h1>
             </div>

@@ -2,10 +2,12 @@ import React from 'react'
 import QR from '../../assets/qr.png'
 import Profile from '../../assets/man.png'
 import Mail from '../../assets/gmail.png'
+import NoRightClick from '@/components/NoRightClick'
 
 function Contact() {
     return (
         <main className='flex-grow'>
+            <NoRightClick />
             <div className='bg-gradient h-48 flex flex-col items-center justify-center'>
                 <h1 className='text-3xl sm:text-4xl lg:text-5xl font-semibold text-white mt-10 dragon tracking-widest'>Contact</h1>
             </div>
